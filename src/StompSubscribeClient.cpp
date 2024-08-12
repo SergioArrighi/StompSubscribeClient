@@ -68,8 +68,6 @@ void StompSubscribeClient::loop() {
     sendHeartBeat();
     _lastHeartBeatSent = currentMillis;
   }
-
-  _wsClient.loop();
 }
 
 int StompSubscribeClient::subscribe(

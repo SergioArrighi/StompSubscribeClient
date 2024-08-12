@@ -85,4 +85,5 @@ void setup() {
 
 void loop() {
   stompClient.loop();
+  webSocket.loop();
 }
