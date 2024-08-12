@@ -1,0 +1,12 @@
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+.pio
+.vscode
+
+.DS_Store
