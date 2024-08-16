@@ -6,7 +6,7 @@
 #endif
 
 #include <Stomp.h>
-#include <WebsocketsClient.h>
+#include <WebSocketsClient.h>
 
 namespace Stomp {
 
@@ -29,7 +29,8 @@ class StompSubscribeClient {
       const char *queue,
       Stomp_QueueType_t queueType,
       Stomp_AckMode_t ackType,
-      StompMessageHandler handler
+      StompMessageHandler handler,
+      IContext* context
     );
     void unsubscribe(int subscription);
     void ack(StompCommand message);
@@ -54,6 +55,7 @@ class StompSubscribeClient {
     uint32_t _commandCount = 0;
     Stomp_State_t _state = DISCONNECTED;
     StompSubscription _subscriptions[STOMP_MAX_SUBSCRIPTIONS];
+    IContext* _context;
 
     unsigned long _lastHeartBeatSent = 0;
     unsigned long _lastHeartBeatReceived = 0;

@@ -43,9 +43,17 @@ typedef enum {
 } Stomp_State_t;
 
 /**
- * Signature of functions which handle incoming MESSAGEs
+ * To be implemented for callback context
  */
-typedef Stomp_Ack_t (*StompMessageHandler)(const StompCommand message);
+class IContext {
+public:
+    virtual ~IContext() {}  // Optional virtual destructor
+};
+
+/**
+ * Signature of functions which handle incoming MESSAGEs with a context
+ */
+typedef Stomp_Ack_t (*StompMessageHandler)(const StompCommand message, const IContext* context);
 
 /**
  * Signature of functions which handle other types of incoming command

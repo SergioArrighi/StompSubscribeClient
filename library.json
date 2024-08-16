@@ -1,6 +1,6 @@
 {
   "name": "StompSubscribeClient",
-  "version": "0.1",
+  "version": "0.3.3",
   "description": "A STOMP client for RabbitMQ dedicated to embedded systems with support for queue subscription.",
   "keywords": "stomp, broker, subscribe",
   "repository":

@@ -74,8 +74,10 @@ int StompSubscribeClient::subscribe(
   const char *queue,
   Stomp_QueueType_t queueType,
   Stomp_AckMode_t ackType,
-  StompMessageHandler handler
+  StompMessageHandler handler,
+  IContext* context
 ) {
+  _context = context;
   // Scan for an unused subscription slot
   for (int i = 0; i < STOMP_MAX_SUBSCRIPTIONS; i++) {
 
@@ -211,7 +213,7 @@ void StompSubscribeClient::_handleMessage(StompCommand message) {
 
   if (subscription->messageHandler) {
     StompMessageHandler callback = subscription->messageHandler;
-    Stomp_Ack_t ackType = callback(message);
+    Stomp_Ack_t ackType = callback(message, _context);
     switch (ackType) {
       case ACK:
         ack(message);
