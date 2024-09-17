@@ -73,12 +73,11 @@ void setup() {
     Serial.println("Connected to STOMP server");
     // Subscribe to the queue
     stompClient.subscribe(queue, Stomp::STREAM, Stomp::CLIENT,
-      [](Stomp::StompCommand message, const Stomp::IContext* context) -> Stomp::Stomp_Ack_t {
+      [](const Stomp::StompCommand message) -> Stomp::Stomp_Ack_t {
         Serial.println("Received message: ");
         Serial.println(message.body.c_str());
         return Stomp::ACK;
-      },
-      nullptr
+      }
     );
   });
 
