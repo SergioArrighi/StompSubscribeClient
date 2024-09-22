@@ -15,7 +15,7 @@ const char* url = "<WS_URL>";
 const unsigned int heartbeatInterval = 10000;
 
 // STOMP client
-Stomp::StompSubscribeClient stompClient(webSocket, host, port, url, heartbeatInterval);
+Stomp::StompSubscribeClient stompClient(&webSocket, host, port, url, heartbeatInterval);
 
 // Example handler for connection state changes
 void stateHandler(const Stomp::StompCommand message) {

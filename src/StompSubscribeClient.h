@@ -13,10 +13,10 @@ namespace Stomp {
 class StompSubscribeClient {
   public:
     StompSubscribeClient(
-      WebSocketsClient &wsClient,
-      const char *host,
+      WebSocketsClient* wsClient,
+      const std::string host,
       const int port,
-      const char *url,
+      const std::string url,
       const unsigned int heartBeatInterval
     );
     ~StompSubscribeClient();
@@ -42,10 +42,10 @@ class StompSubscribeClient {
     void onError(StompStateHandler handler);
 
   private:
-    WebSocketsClient &_wsClient;
-    const char *_host;
+    WebSocketsClient*_wsClient;
+    const std::string _host;
     const int _port;
-    const char *_url;
+    const std::string _url;
 
     bool _handshakeComplete = false;
 

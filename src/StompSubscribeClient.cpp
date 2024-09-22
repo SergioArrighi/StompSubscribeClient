@@ -4,14 +4,14 @@
 namespace Stomp {
 
 StompSubscribeClient::StompSubscribeClient(
-  WebSocketsClient &wsClient,
-  const char *host,
+  WebSocketsClient* wsClient,
+  const std::string host,
   const int port,
-  const char *url,
+  const std::string url,
   const unsigned int heartBeatInterval
 ) : _wsClient(wsClient), _host(host), _port(port), _url(url), _heartBeatInterval(heartBeatInterval) {
 
-  _wsClient.onEvent( [this] (WStype_t type, uint8_t * payload, size_t length) {
+  _wsClient->onEvent( [this] (WStype_t type, uint8_t * payload, size_t length) {
     this->_handleWebSocketEvent(type, payload, length);
   } );
 
@@ -49,12 +49,12 @@ void StompSubscribeClient::_handleWebSocketEvent(WStype_t type, uint8_t * payloa
 
 StompSubscribeClient::~StompSubscribeClient() {
   disconnect();
-  _wsClient.disconnect();
+  _wsClient->disconnect();
 }
 
 void StompSubscribeClient::begin() {
-  _wsClient.begin(_host, _port, _url);
-  _wsClient.setExtraHeaders();
+  _wsClient->begin(_host.c_str(), _port, _url.c_str());
+  _wsClient->setExtraHeaders();
   _lastHeartBeatSent = millis();
   _lastHeartBeatReceived = millis();
 }
@@ -142,7 +142,7 @@ void StompSubscribeClient::disconnect() {
 }
 
 void StompSubscribeClient::sendHeartBeat() {
-  _wsClient.sendTXT("\n");
+  _wsClient->sendTXT("\n");
 }
 
 void StompSubscribeClient::onConnect(StompStateHandler handler) {
@@ -260,7 +260,7 @@ void StompSubscribeClient::_send(
 
   msg += "\n^@";
 
-  _wsClient.sendTXT(msg.c_str(), msg.length() + 1);
+  _wsClient->sendTXT(msg.c_str(), msg.length() + 1);
   _lastHeartBeatSent = millis();
   _commandCount++;
 }
